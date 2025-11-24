@@ -1,20 +1,29 @@
 // backend/src/socket.js
-import { Server as SocketIOServer } from 'socket.io';
+import { Server } from 'socket.io';
 
 export function registerSocketHandlers(server) {
-  const io = new SocketIOServer(server, {
-    cors: { origin: process.env.CORS_ORIGIN || 'http://localhost:3000', methods: ['GET','POST'], credentials: true },
+  const io = new Server(server, {
+    cors: {
+      origin: process.env.CORS_ORIGIN || "http://localhost:3000",
+      methods: ["GET", "POST"]
+    }
   });
 
   io.on('connection', (socket) => {
-    console.log('WS connected', socket.id);
+    console.log('🔌 New client connected:', socket.id);
 
-    socket.on('ping', (data) => {
-      socket.emit('pong', { time: new Date().toISOString(), you: data });
+    socket.on('join-internship-room', (internshipId) => {
+      socket.join(`internship-${internshipId}`);
+      console.log(`Client ${socket.id} joined internship room ${internshipId}`);
     });
 
-    socket.on('disconnect', (reason) => {
-      console.log('WS disconnect', socket.id, reason);
+    socket.on('new-application', (data) => {
+      // Broadcast to all clients in the internship room
+      socket.to(`internship-${data.internshipId}`).emit('application-received', data);
+    });
+
+    socket.on('disconnect', () => {
+      console.log('🔌 Client disconnected:', socket.id);
     });
   });
 

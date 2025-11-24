@@ -8,9 +8,9 @@ let pool = null;
 export function getPool() {
   if (pool) return pool;
   if (!DATABASE_URL) throw new Error('DATABASE_URL not set');
+  
   pool = new Pool({
     connectionString: DATABASE_URL,
-    // tune pool if needed:
     max: 10,
     idleTimeoutMillis: 30000,
     connectionTimeoutMillis: 2000
