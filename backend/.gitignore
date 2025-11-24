@@ -17,7 +17,7 @@ yarn-error.log*
 .env.production
 .env.test
 .env.*
-!.env.example
+.env.example
 
 # -------------------------
 # Logs
