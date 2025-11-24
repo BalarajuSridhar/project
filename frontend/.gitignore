@@ -1,0 +1,113 @@
+# -------------------------
+# Node / PNPM
+# -------------------------
+node_modules/
+pnpm-lock.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-store/
+
+# -------------------------
+# Environment Variables
+# -------------------------
+.env
+.env.local
+.env.development
+.env.production
+.env.test
+.env.*
+!.env.example
+
+# -------------------------
+# Logs
+# -------------------------
+logs
+*.log
+log.txt
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+lerna-debug.log
+*.pid
+*.seed
+*.pid.lock
+
+# -------------------------
+# TypeScript
+# -------------------------
+*.tsbuildinfo
+
+# -------------------------
+# Build Outputs
+# -------------------------
+dist/
+build/
+out/
+.next/
+.cache/
+
+# -------------------------
+# Frontend Cache
+# -------------------------
+.DS_Store
+.vscode/
+.idea/
+*.swp
+
+# Next.js specific
+.next/
+.vercel/
+exported/
+*.next
+
+# -------------------------
+# React (Vite / CRA) builds
+# -------------------------
+vite.config.ts.timestamp-*
+.vite/
+*.cache/
+coverage/
+
+# -------------------------
+# Prisma
+# -------------------------
+prisma/*.db
+prisma/migrations/
+*.prisma
+# (You may keep migrations if needed — comment the above line if so)
+prisma/generated/
+
+# -------------------------
+# Uploads / Temp Files
+# -------------------------
+temp/
+tmp/
+uploads/
+*.tmp
+*.bak
+
+# -------------------------
+# OS Specific
+# -------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
+$RECYCLE.BIN/
+
+# -------------------------
+# Editor / IDE
+# -------------------------
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# -------------------------
+# Misc
+# -------------------------
+*.orig
+*.rej
