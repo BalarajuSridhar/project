@@ -1,19 +1,24 @@
 // frontend/app/layout.tsx
-import './globals.css'
+import './globals.css';
+import { AuthProvider } from '../contexts/AuthContext';
 
 export const metadata = {
-  title: 'CareerLaunch | Student Internship Portal',
-  description: 'Find the best internships for students',
-}
+  title: 'SkillIntern | Student Internship Portal',
+  description: 'Master in-demand skills through structured internship programs',
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AuthProvider>
+          {children}
+        </AuthProvider>
+      </body>
     </html>
-  )
+  );
 }

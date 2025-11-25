@@ -1,4 +1,3 @@
-// backend/src/db.js
 import pkg from 'pg';
 const { Pool } = pkg;
 import { DATABASE_URL } from './config/index.js';
@@ -17,7 +16,7 @@ export function getPool() {
   });
 
   pool.on('error', (err) => {
-    console.error('Unexpected idle client error', err);
+    console.error('Unexpected database error', err);
   });
 
   return pool;

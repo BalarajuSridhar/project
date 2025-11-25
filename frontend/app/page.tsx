@@ -1,12 +1,13 @@
-// frontend/app/page.tsx
+// app/page.tsx
 'use client';
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import Header from '../components/Layout/Header';
 import Hero from '../components/Sections/Hero';
-import About from '../components/Sections/About';
-import Internships from '../components/Sections/Internships';
+import Domains from '../components/Sections/Domains';
+import HowItWorks from '../components/Sections/HowItWorks';
+import SuccessStories from '../components/Sections/SuccessStories';
 import Contact from '../components/Sections/Contact';
 import Footer from '../components/Layout/Footer';
 import LoadingSpinner from '../components/UI/LoadingSpinner';
@@ -32,8 +33,9 @@ export default function Home() {
     >
       <Header />
       <Hero />
-      <About />
-      <Internships />
+      <Domains />
+      <HowItWorks />
+      <SuccessStories />
       <Contact />
       <Footer />
     </motion.div>

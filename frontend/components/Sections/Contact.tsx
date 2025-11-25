@@ -1,8 +1,10 @@
-// frontend/components/Sections/Contact.tsx
+// components/Sections/Contact.tsx
+'use client';
+
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, MessageCircle } from 'lucide-react';
 
 export default function Contact() {
   const ref = useRef(null);
@@ -31,8 +33,8 @@ export default function Contact() {
     {
       icon: Mail,
       title: 'Email',
-      content: 'hello@careerlaunch.com',
-      link: 'mailto:hello@careerlaunch.com'
+      content: 'hello@skillintern.com',
+      link: 'mailto:hello@skillintern.com'
     },
     {
       icon: Phone,
@@ -43,13 +45,13 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Office',
-      content: '123 Innovation Drive, Tech City, TC 12345',
+      content: '123 Tech Street, Innovation City, IC 12345',
       link: '#'
     }
   ];
 
   return (
-    <section id="contact" ref={ref} className="py-20 bg-white">
+    <section id="contact" ref={ref} className="py-20 bg-gray-50">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -59,7 +61,7 @@ export default function Contact() {
         >
           <h2 className="text-5xl font-bold text-gray-900 mb-4">Get In Touch</h2>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.
+            Have questions about our internship programs? We're here to help you start your tech journey.
           </p>
         </motion.div>
 
@@ -71,7 +73,11 @@ export default function Contact() {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="space-y-8"
           >
-            <h3 className="text-3xl font-bold text-gray-900 mb-6">Let's Talk</h3>
+            <h3 className="text-3xl font-bold text-gray-900 mb-6">Let's Start Your Journey</h3>
+            <p className="text-gray-600 text-lg mb-8">
+              Whether you're a student looking to boost your career or have questions about our programs, 
+              we'd love to hear from you.
+            </p>
             
             {contactInfo.map((item, index) => (
               <motion.a
@@ -81,7 +87,7 @@ export default function Contact() {
                 animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.5, delay: 0.4 + index * 0.1 }}
                 whileHover={{ x: 10 }}
-                className="flex items-start space-x-4 p-4 rounded-xl hover:bg-gray-50 transition-colors group"
+                className="flex items-start space-x-4 p-4 rounded-xl hover:bg-white transition-colors group"
               >
                 <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition-colors">
                   <item.icon size={24} />
@@ -93,17 +99,18 @@ export default function Contact() {
               </motion.a>
             ))}
 
-            {/* Map Placeholder */}
+            {/* Quick Help */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
               transition={{ duration: 0.8, delay: 0.6 }}
-              className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-8 text-center h-64 flex items-center justify-center"
+              className="bg-blue-600 rounded-2xl p-6 text-white"
             >
-              <div className="text-center">
-                <MapPin size={48} className="text-blue-600 mx-auto mb-4" />
-                <p className="text-gray-700 font-medium">Interactive Map Location</p>
-              </div>
+              <MessageCircle className="h-8 w-8 mb-4" />
+              <h4 className="font-bold text-lg mb-2">Quick Assistance</h4>
+              <p className="text-blue-100">
+                Our team typically responds within 2 hours during business days.
+              </p>
             </motion.div>
           </motion.div>
 
@@ -112,7 +119,7 @@ export default function Contact() {
             initial={{ opacity: 0, x: 50 }}
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 50 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="bg-gray-50 rounded-2xl p-8"
+            className="bg-white rounded-2xl p-8 shadow-lg"
           >
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">

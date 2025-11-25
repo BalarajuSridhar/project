@@ -1,10 +1,12 @@
-// backend/src/routes/hello.routes.js
 import express from 'express';
 
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.json({ message: 'Hello from CareerLaunch API!' });
+  res.json({ 
+    message: 'Hello from SkillIntern API!',
+    timestamp: new Date().toISOString()
+  });
 });
 
 export default router;

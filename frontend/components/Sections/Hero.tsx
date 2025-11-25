@@ -1,19 +1,22 @@
-// frontend/components/Sections/Hero.tsx
+// components/Sections/Hero.tsx
+'use client';
+
 import { motion } from 'framer-motion';
-import { ArrowRight, Play, Users, Briefcase, Star } from 'lucide-react';
+import { ArrowRight, Play, Code, Database, Palette, ChartBar } from 'lucide-react';
 
 export default function Hero() {
-  const stats = [
-    { icon: Users, number: '10K+', label: 'Students Placed' },
-    { icon: Briefcase, number: '500+', label: 'Companies' },
-    { icon: Star, number: '4.9', label: 'Rating' },
+  const domains = [
+    { icon: Code, name: 'Web Development', color: 'blue' },
+    { icon: Database, name: 'Data Science', color: 'green' },
+    { icon: Palette, name: 'UI/UX Design', color: 'purple' },
+    { icon: ChartBar, name: 'Digital Marketing', color: 'orange' },
   ];
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white to-blue-50">
+    <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-white to-blue-50 pt-20">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(20)].map((_, i) => (
+        {[...Array(15)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute rounded-full bg-blue-200 opacity-20"
@@ -44,7 +47,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="max-w-4xl mx-auto"
+          className="max-w-6xl mx-auto"
         >
           <motion.h1 
             className="text-6xl md:text-8xl font-bold text-gray-900 mb-6"
@@ -59,7 +62,7 @@ export default function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, delay: 0.5 }}
             >
-              Career
+              Tech Career
             </motion.span>
           </motion.h1>
           
@@ -67,9 +70,10 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-2xl mx-auto"
+            className="text-xl md:text-2xl text-gray-600 mb-8 max-w-3xl mx-auto"
           >
-            Discover amazing internship opportunities from top companies and kickstart your professional journey.
+            Master in-demand skills through structured internship programs. 
+            Choose your domain, select duration, and build real-world projects with expert guidance.
           </motion.p>
 
           <motion.div
@@ -83,7 +87,7 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="bg-blue-600 text-white px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:bg-blue-700 transition-colors"
             >
-              Find Internships <ArrowRight size={20} />
+              Explore Domains <ArrowRight size={20} />
             </motion.button>
             
             <motion.button
@@ -91,29 +95,35 @@ export default function Hero() {
               whileTap={{ scale: 0.95 }}
               className="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-full font-semibold flex items-center gap-2 hover:border-blue-600 hover:text-blue-600 transition-colors"
             >
-              <Play size={20} /> Watch Demo
+              <Play size={20} /> How It Works
             </motion.button>
           </motion.div>
 
-          {/* Stats */}
+          {/* Domain Quick Links */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.1 }}
-            className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto"
+            className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
           >
-            {stats.map((stat, index) => (
+            {domains.map((domain, index) => (
               <motion.div
-                key={stat.label}
+                key={domain.name}
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 1.3 + index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-                className="text-center p-6 rounded-2xl bg-white shadow-lg hover-lift"
+                whileHover={{ scale: 1.05, y: -5 }}
+                className="bg-white p-6 rounded-2xl shadow-lg hover-lift group cursor-pointer"
               >
-                <stat.icon className="h-8 w-8 text-blue-600 mx-auto mb-3" />
-                <div className="text-2xl font-bold text-gray-900">{stat.number}</div>
-                <div className="text-gray-600">{stat.label}</div>
+                <domain.icon 
+                  className={`h-12 w-12 mx-auto mb-4 group-hover:scale-110 transition-transform
+                    ${domain.color === 'blue' ? 'text-blue-600' : ''}
+                    ${domain.color === 'green' ? 'text-green-600' : ''}
+                    ${domain.color === 'purple' ? 'text-purple-600' : ''}
+                    ${domain.color === 'orange' ? 'text-orange-600' : ''}
+                  `} 
+                />
+                <div className="text-lg font-semibold text-gray-900">{domain.name}</div>
               </motion.div>
             ))}
           </motion.div>

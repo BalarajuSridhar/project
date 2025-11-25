@@ -1,9 +1,9 @@
-// frontend/components/Layout/Header.tsx
+// components/Layout/Header.tsx
 'use client';
 
 import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
-import { Menu, X, GraduationCap } from 'lucide-react';
+import { Menu, X, GraduationCap, BookOpen, Users, Award } from 'lucide-react';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -19,8 +19,9 @@ export default function Header() {
 
   const navItems = [
     { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Internships', href: '#internships' },
+    { name: 'Domains', href: '#domains' },
+    { name: 'How It Works', href: '#how-it-works' },
+    { name: 'Success Stories', href: '#success' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -39,7 +40,7 @@ export default function Header() {
             className="flex items-center space-x-2"
           >
             <GraduationCap className="h-8 w-8 text-blue-600" />
-            <span className="text-2xl font-bold text-gray-900">CareerLaunch</span>
+            <span className="text-2xl font-bold text-gray-900">SkillIntern</span>
           </motion.div>
 
           {/* Desktop Menu */}
@@ -62,7 +63,7 @@ export default function Header() {
               whileTap={{ scale: 0.95 }}
               className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors"
             >
-              Get Started
+              Browse Domains
             </motion.button>
           </div>
 
