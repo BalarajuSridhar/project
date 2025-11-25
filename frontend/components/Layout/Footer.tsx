@@ -1,6 +1,8 @@
 // frontend/components/Layout/Footer.tsx
+'use client';
+
 import { motion } from 'framer-motion';
-import { Facebook, Twitter, Instagram, Linkedin, ArrowUp } from 'lucide-react';
+import { Facebook, Twitter, Instagram, Linkedin, ArrowUp, Mail, Sparkles } from 'lucide-react';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -9,16 +11,16 @@ export default function Footer() {
 
   const footerSections = [
     {
+      title: 'Programs',
+      links: ['Web Development', 'Data Science', 'UI/UX Design', 'Digital Marketing', 'Mobile Development', 'Cloud Computing']
+    },
+    {
       title: 'Company',
-      links: ['About Us', 'Careers', 'Blog', 'Press']
+      links: ['About Us', 'Success Stories', 'Blog', 'Contact']
     },
     {
-      title: 'Resources',
-      links: ['Internship Guide', 'Career Tips', 'Success Stories', 'FAQ']
-    },
-    {
-      title: 'Legal',
-      links: ['Privacy Policy', 'Terms of Service', 'Cookie Policy']
+      title: 'Support',
+      links: ['FAQ', 'Help Center', 'Internship Guide', 'Career Tips']
     }
   ];
 
@@ -30,12 +32,12 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white relative overflow-hidden">
-      {/* Background Pattern */}
+    <footer className="bg-gray-900 text-white relative">
+      {/* Background Elements */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
-          backgroundImage: `radial-gradient(circle at 25px 25px, white 2%, transparent 0%), radial-gradient(circle at 75px 75px, white 2%, transparent 0%)`,
-          backgroundSize: '100px 100px'
+          backgroundImage: `radial-gradient(circle at 20px 20px, #3b82f6 1px, transparent 0)`,
+          backgroundSize: '40px 40px'
         }} />
       </div>
 
@@ -43,17 +45,38 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="lg:col-span-2"
           >
-            <h3 className="text-2xl font-bold mb-4">CareerLaunch</h3>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Connecting students with life-changing internship opportunities. 
-              Your career journey starts here.
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-8 h-8 bg-blue-600 rounded-full flex items-center justify-center">
+                <Sparkles className="h-4 w-4 text-white" />
+              </div>
+              <div>
+                <h3 className="text-xl font-black bg-gradient-to-r from-blue-400 to-blue-300 bg-clip-text text-transparent">
+                  SPARK TECH
+                </h3>
+                <p className="text-xs font-medium text-blue-400 -mt-1">INTERNS</p>
+              </div>
+            </div>
+            
+            <p className="text-gray-300 text-sm mb-6 max-w-md leading-relaxed">
+              Launch your tech career with structured internship programs. 
+              Master in-demand skills through real-world projects and expert mentorship.
             </p>
-            <div className="flex space-x-4">
+            
+            {/* Contact Info */}
+            <div className="space-y-2 mb-6">
+              <div className="flex items-center space-x-3 text-sm text-gray-300">
+                <Mail className="h-4 w-4 text-blue-400" />
+                <span>hello@sparktech.com</span>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div className="flex space-x-3">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={social.label}
@@ -61,11 +84,11 @@ export default function Footer() {
                   initial={{ opacity: 0, scale: 0 }}
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.2, y: -5 }}
-                  className="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition-colors"
+                  whileHover={{ scale: 1.1, y: -2 }}
+                  className="w-8 h-8 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-blue-600 hover:text-white transition-all duration-200"
                   aria-label={social.label}
                 >
-                  <social.icon size={18} />
+                  <social.icon size={14} />
                 </motion.a>
               ))}
             </div>
@@ -75,20 +98,23 @@ export default function Footer() {
           {footerSections.map((section, index) => (
             <motion.div
               key={section.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
             >
-              <h4 className="font-semibold mb-4 text-lg">{section.title}</h4>
+              <h4 className="font-semibold text-gray-100 text-sm mb-4 uppercase tracking-wider">
+                {section.title}
+              </h4>
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link}>
-                    <a
+                    <motion.a
                       href="#"
-                      className="text-gray-400 hover:text-white transition-colors"
+                      whileHover={{ x: 3, color: "#60a5fa" }}
+                      className="text-gray-400 text-sm hover:text-blue-400 transition-colors block py-1"
                     >
                       {link}
-                    </a>
+                    </motion.a>
                   </li>
                 ))}
               </ul>
@@ -103,21 +129,58 @@ export default function Footer() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
         >
-          <p className="text-gray-400 text-sm mb-4 md:mb-0">
-            © 2024 CareerLaunch. All rights reserved.
-          </p>
+          <div className="text-center md:text-left mb-4 md:mb-0">
+            <p className="text-gray-400 text-sm">
+              © 2024 Spark Tech Interns. All rights reserved.
+            </p>
+            <div className="flex flex-wrap justify-center md:justify-start space-x-4 mt-2">
+              <a href="#" className="text-gray-500 hover:text-blue-400 text-xs transition-colors">
+                Privacy Policy
+              </a>
+              <a href="#" className="text-gray-500 hover:text-blue-400 text-xs transition-colors">
+                Terms of Service
+              </a>
+              <a href="#" className="text-gray-500 hover:text-blue-400 text-xs transition-colors">
+                Cookie Policy
+              </a>
+            </div>
+          </div>
           
           <motion.button
             onClick={scrollToTop}
-            whileHover={{ scale: 1.1, y: -5 }}
-            whileTap={{ scale: 0.9 }}
-            className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
+            whileHover={{ scale: 1.05, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center hover:bg-blue-500 transition-colors shadow-sm hover:shadow-md"
             aria-label="Scroll to top"
           >
-            <ArrowUp size={20} />
+            <ArrowUp size={16} className="text-white" />
           </motion.button>
         </motion.div>
       </div>
+
+      {/* Floating CTA */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.6 }}
+        className="bg-gray-800 border-t border-gray-700"
+      >
+        <div className="container mx-auto px-6 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between">
+            <div className="text-center md:text-left mb-4 md:mb-0">
+              <h4 className="font-semibold text-gray-100 text-sm mb-1">Ready to start your journey?</h4>
+              <p className="text-gray-400 text-xs">Join 500+ developers building their careers</p>
+            </div>
+            <motion.button
+              whileHover={{ scale: 1.02, backgroundColor: "#ea580c" }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-orange-500 text-white px-6 py-2 rounded-lg font-medium text-sm hover:shadow-md transition-all duration-200"
+            >
+              Browse Domains
+            </motion.button>
+          </div>
+        </div>
+      </motion.div>
     </footer>
   );
 }

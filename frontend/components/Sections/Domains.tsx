@@ -4,7 +4,7 @@
 import { motion } from 'framer-motion';
 import { useInView } from 'framer-motion';
 import { useRef } from 'react';
-import { Code, Database, Palette, ChartBar, Smartphone, Cloud, Cpu, Globe } from 'lucide-react';
+import { Code, Database, Palette, ChartBar, Smartphone, Cloud, ArrowRight } from 'lucide-react';
 
 export default function Domains() {
   const ref = useRef(null);
@@ -14,50 +14,50 @@ export default function Domains() {
     {
       icon: Code,
       title: 'Web Development',
-      description: 'Master frontend and backend technologies. Build responsive websites and web applications.',
-      skills: ['HTML/CSS', 'JavaScript', 'React', 'Node.js', 'MongoDB'],
-      durations: ['4 weeks', '6 weeks', '8 weeks', '12 weeks'],
-      projects: 4
+      description: 'Master frontend and backend technologies. Build responsive websites.',
+      skills: ['React', 'Node.js', 'MongoDB'],
+      duration: '4-12 weeks',
+      color: 'blue'
     },
     {
       icon: Database,
       title: 'Data Science',
-      description: 'Learn data analysis, machine learning, and visualization. Work with real datasets.',
-      skills: ['Python', 'Pandas', 'ML Algorithms', 'Data Visualization', 'SQL'],
-      durations: ['6 weeks', '8 weeks', '12 weeks'],
-      projects: 3
+      description: 'Learn data analysis, machine learning, and visualization.',
+      skills: ['Python', 'ML', 'SQL'],
+      duration: '6-12 weeks',
+      color: 'green'
     },
     {
       icon: Palette,
       title: 'UI/UX Design',
-      description: 'Create beautiful and user-friendly interfaces. Learn design principles and prototyping.',
-      skills: ['Figma', 'User Research', 'Wireframing', 'Prototyping', 'Design Systems'],
-      durations: ['4 weeks', '6 weeks', '8 weeks'],
-      projects: 5
+      description: 'Create beautiful and user-friendly interfaces.',
+      skills: ['Figma', 'Prototyping', 'Research'],
+      duration: '4-8 weeks',
+      color: 'purple'
     },
     {
       icon: ChartBar,
       title: 'Digital Marketing',
-      description: 'Master SEO, social media marketing, and analytics. Run real campaigns.',
-      skills: ['SEO', 'Social Media', 'Google Analytics', 'Content Strategy', 'PPC'],
-      durations: ['4 weeks', '6 weeks', '8 weeks'],
-      projects: 3
+      description: 'Master SEO, social media, and analytics.',
+      skills: ['SEO', 'Analytics', 'Content'],
+      duration: '4-8 weeks',
+      color: 'orange'
     },
     {
       icon: Smartphone,
       title: 'Mobile Development',
-      description: 'Build cross-platform mobile applications. Learn React Native or Flutter.',
-      skills: ['React Native', 'Flutter', 'Mobile UI', 'APIs', 'App Store Deployment'],
-      durations: ['6 weeks', '8 weeks', '12 weeks'],
-      projects: 3
+      description: 'Build cross-platform mobile applications.',
+      skills: ['React Native', 'APIs', 'UI'],
+      duration: '6-12 weeks',
+      color: 'indigo'
     },
     {
       icon: Cloud,
       title: 'Cloud Computing',
-      description: 'Learn AWS, Azure, or Google Cloud. Deploy and manage cloud infrastructure.',
-      skills: ['AWS', 'Docker', 'Kubernetes', 'CI/CD', 'Serverless'],
-      durations: ['8 weeks', '12 weeks'],
-      projects: 4
+      description: 'Learn AWS, Azure, and cloud deployment.',
+      skills: ['AWS', 'Docker', 'CI/CD'],
+      duration: '8-12 weeks',
+      color: 'cyan'
     },
   ];
 
@@ -66,35 +66,76 @@ export default function Domains() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2
+        staggerChildren: 0.15
       }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50 },
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
       transition: {
-        duration: 0.6
+        duration: 0.5
       }
     }
   };
 
+  const getColorClasses = (color: string) => {
+    const colorMap: { [key: string]: { bg: string; text: string; hover: string; light: string } } = {
+      blue: { 
+        bg: 'bg-blue-600', 
+        text: 'text-blue-600', 
+        hover: 'hover:bg-blue-700',
+        light: 'bg-blue-50'
+      },
+      orange: { 
+        bg: 'bg-orange-500', 
+        text: 'text-orange-500', 
+        hover: 'hover:bg-orange-600',
+        light: 'bg-orange-50'
+      },
+      green: { 
+        bg: 'bg-green-600', 
+        text: 'text-green-600', 
+        hover: 'hover:bg-green-700',
+        light: 'bg-green-50'
+      },
+      purple: { 
+        bg: 'bg-purple-600', 
+        text: 'text-purple-600', 
+        hover: 'hover:bg-purple-700',
+        light: 'bg-purple-50'
+      },
+      indigo: { 
+        bg: 'bg-indigo-600', 
+        text: 'text-indigo-600', 
+        hover: 'hover:bg-indigo-700',
+        light: 'bg-indigo-50'
+      },
+      cyan: { 
+        bg: 'bg-cyan-600', 
+        text: 'text-cyan-600', 
+        hover: 'hover:bg-cyan-700',
+        light: 'bg-cyan-50'
+      },
+    };
+    return colorMap[color] || colorMap.blue;
+  };
+
   return (
-    <section id="domains" ref={ref} className="py-20 bg-white">
+    <section id="domains" ref={ref} className="py-16 bg-gradient-to-b from-white to-blue-50">
       <div className="container mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-5xl font-bold text-gray-900 mb-4">Choose Your Domain</h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Select from our carefully designed internship programs. Each domain offers multiple duration options 
-            and real-world projects to build your portfolio.
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">Choose Your Domain</h2>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+            Select from our specialized internship programs. Each domain offers practical skills and real projects.
           </p>
         </motion.div>
 
@@ -102,62 +143,87 @@ export default function Domains() {
           variants={containerVariants}
           initial="hidden"
           animate={isInView ? "visible" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"
         >
-          {domains.map((domain, index) => (
-            <motion.div
-              key={domain.title}
-              variants={itemVariants}
-              whileHover={{ scale: 1.05, y: -10 }}
-              className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden hover-lift group"
-            >
-              <div className="p-8">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-6 group-hover:bg-blue-600 group-hover:text-white transition-colors">
-                  <domain.icon size={32} />
-                </div>
-                
-                <h3 className="text-2xl font-bold text-gray-900 mb-4">{domain.title}</h3>
-                <p className="text-gray-600 mb-6 leading-relaxed">{domain.description}</p>
-                
-                <div className="space-y-4">
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Skills You'll Learn:</h4>
-                    <div className="flex flex-wrap gap-2">
+          {domains.map((domain, index) => {
+            const colors = getColorClasses(domain.color);
+            return (
+              <motion.div
+                key={domain.title}
+                variants={itemVariants}
+                whileHover={{ y: -5 }}
+                className="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden group cursor-pointer transition-all duration-300 hover:shadow-lg"
+              >
+                <div className="p-6">
+                  {/* Header with Icon and Title */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className={`w-12 h-12 ${colors.light} rounded-lg flex items-center justify-center group-hover:${colors.bg} group-hover:text-white transition-all duration-300`}>
+                      <domain.icon size={24} />
+                    </div>
+                    <motion.div
+                      whileHover={{ x: 3 }}
+                      className={`opacity-0 group-hover:opacity-100 transition-opacity duration-300 ${colors.text}`}
+                    >
+                      <ArrowRight size={20} />
+                    </motion.div>
+                  </div>
+                  
+                  {/* Content */}
+                  <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-900 transition-colors">
+                    {domain.title}
+                  </h3>
+                  
+                  <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+                    {domain.description}
+                  </p>
+                  
+                  {/* Skills */}
+                  <div className="mb-4">
+                    <div className="flex flex-wrap gap-1.5">
                       {domain.skills.map((skill) => (
-                        <span key={skill} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm">
+                        <span 
+                          key={skill} 
+                          className={`${colors.light} ${colors.text} px-2.5 py-1 rounded-md text-xs font-medium`}
+                        >
                           {skill}
                         </span>
                       ))}
                     </div>
                   </div>
                   
-                  <div>
-                    <h4 className="font-semibold text-gray-900 mb-2">Duration Options:</h4>
-                    <div className="flex flex-wrap gap-2">
-                      {domain.durations.map((duration) => (
-                        <span key={duration} className="bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-medium">
-                          {duration}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                  
-                  <div className="flex justify-between items-center pt-4 border-t border-gray-200">
-                    <span className="text-sm text-gray-600">
-                      {domain.projects} real projects
+                  {/* Footer */}
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                    <span className={`text-sm font-semibold ${colors.text}`}>
+                      {domain.duration}
                     </span>
-                    <motion.button
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      className="bg-blue-600 text-white px-6 py-2 rounded-full font-medium hover:bg-blue-700 transition-colors"
+                    <motion.span
+                      whileHover={{ scale: 1.1 }}
+                      className={`${colors.bg} text-white px-3 py-1.5 rounded-lg text-xs font-medium ${colors.hover} transition-colors`}
                     >
-                      View Details
-                    </motion.button>
+                      Explore
+                    </motion.span>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
+        </motion.div>
+
+        {/* CTA Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+          transition={{ duration: 0.6, delay: 0.8 }}
+          className="text-center mt-12"
+        >
+          <motion.button
+            whileHover={{ scale: 1.05, backgroundColor: "#ea580c" }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-orange-500 text-white px-8 py-3 rounded-lg font-semibold flex items-center gap-2 mx-auto shadow-lg hover:shadow-xl transition-all duration-200"
+          >
+            View All Programs
+            <ArrowRight size={18} />
+          </motion.button>
         </motion.div>
       </div>
     </section>
