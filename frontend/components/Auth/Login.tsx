@@ -7,6 +7,7 @@ import { Eye, EyeOff, Mail, Lock, AlertCircle, ArrowRight } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -17,6 +18,8 @@ export default function Login() {
   const [mounted, setMounted] = useState(false);
   
   const { login } = useAuth();
+  const searchParams = useSearchParams();
+  const returnUrl = searchParams.get('returnUrl') || '/dashboard';
 
   useEffect(() => {
     setMounted(true);
@@ -29,8 +32,11 @@ export default function Login() {
 
     try {
       await login(email, password);
+      
+      // Redirect to return URL or dashboard after successful login
+      window.location.href = returnUrl;
     } catch (err: any) {
-      setError(err.message);
+      setError(err.message || 'Login failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -103,10 +109,24 @@ export default function Login() {
           <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome back</h2>
           <p className="text-gray-600 text-sm">
             Don't have an account?{' '}
-            <Link href="/auth/register" className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
+            <Link href={`/auth/register${returnUrl !== '/dashboard' ? `?returnUrl=${encodeURIComponent(returnUrl)}` : ''}`} className="font-medium text-blue-600 hover:text-blue-500 transition-colors">
               Sign up now
             </Link>
           </p>
+          
+          {/* Show return URL info if present */}
+          {returnUrl && returnUrl !== '/dashboard' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200"
+            >
+              <p className="text-sm text-blue-700">
+                <strong>Continue to:</strong> {returnUrl.replace('/domains/', 'Domain: ').replace(/-/g, ' ')}
+              </p>
+            </motion.div>
+          )}
         </div>
 
         {/* Error Message */}
@@ -139,7 +159,7 @@ export default function Login() {
                   required
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors text-sm"
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-sm placeholder-gray-400"
                   placeholder="Enter your email"
                 />
               </div>
@@ -160,13 +180,13 @@ export default function Login() {
                   required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-1 focus:ring-blue-500 focus:border-blue-500 transition-colors text-sm"
+                  className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors text-sm placeholder-gray-400"
                   placeholder="Enter your password"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
+                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
                 >
                   {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                 </button>
@@ -204,7 +224,10 @@ export default function Login() {
             className="group relative w-full flex justify-center items-center py-3 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-sm hover:shadow-md"
           >
             {isLoading ? (
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              <div className="flex items-center space-x-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <span>Signing in...</span>
+              </div>
             ) : (
               <>
                 Sign in
@@ -222,16 +245,18 @@ export default function Login() {
           className="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100"
         >
           <p className="text-sm text-gray-600 text-center">
-            <strong className="text-blue-900">Demo Credentials</strong><br />
-            <span className="text-xs">
-              Email: demo@sparktech.com<br />
-              Password: demo123
+            <strong className="text-blue-900 block mb-1">Demo Credentials</strong>
+            <span className="text-xs block">
+              <span className="font-medium">Email:</span> demo@sparktech.com
+            </span>
+            <span className="text-xs block">
+              <span className="font-medium">Password:</span> demo123
             </span>
           </p>
         </motion.div>
 
         {/* Back to Home */}
-        <div className="text-center">
+        <div className="text-center pt-4 border-t border-gray-200">
           <Link 
             href="/" 
             className="inline-flex items-center text-sm text-gray-500 hover:text-gray-700 transition-colors"

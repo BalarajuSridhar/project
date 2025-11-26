@@ -16,7 +16,11 @@ import { getPool } from './db.js';
 import authRoutes from './routes/auth.routes.js';
 import dashboardRoutes from './routes/dashboard.routes.js';
 import helloRoutes from './routes/hello.routes.js';
+import userRoutes from './routes/user.routes.js';
+import domainRoutes from './routes/domains.routes.js';
 import adminRoutes from './routes/admin.routes.js';
+import adminAuthRoutes from './routes/admin.auth.routes.js';
+import adminUserRoutes from './routes/admin.users.routes.js';
 
 const app = express();
 app.set('trust proxy', true);
@@ -42,7 +46,13 @@ app.use((req, _res, next) => {
 app.use('/api/auth', authRoutes);
 app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/hello', helloRoutes);
+app.use('/api/user', userRoutes);
+app.use('/api/domains', domainRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/admin/auth', adminAuthRoutes);
+app.use('/api/admin', adminUserRoutes);
+
+
 
 // Health check
 app.get('/healthz', async (_req, res) => {

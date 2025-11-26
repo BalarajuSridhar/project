@@ -1,17 +1,14 @@
-// components/Layout/Header.tsx
 'use client';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Menu, X, Sparkles } from 'lucide-react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const router = useRouter();
 
   useEffect(() => {
     let ticking = false;
@@ -26,10 +23,25 @@ export default function Header() {
       }
     };
 
-    // Throttled scroll event for performance
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Handle body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.classList.add('menu-open');
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.classList.remove('menu-open');
+      document.documentElement.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.body.classList.remove('menu-open');
+      document.documentElement.style.overflow = 'unset';
+    };
+  }, [isMobileMenuOpen]);
 
   const navItems = [
     { name: 'Home', href: '#home' },
@@ -61,9 +73,34 @@ export default function Header() {
 
   const handleGetStarted = () => {
     setIsMobileMenuOpen(false);
-    // Redirect to login page
-    router.push('/auth/login');
+    // Scroll to domains section instead of redirecting to login
+    handleNavClick('#domains');
   };
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement;
+      if (isMobileMenuOpen && !target.closest('nav')) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('click', handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu on escape key
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, [isMobileMenuOpen]);
 
   return (
     <motion.header
@@ -155,7 +192,7 @@ export default function Header() {
               );
             })}
             
-            {/* Compact CTA Button - Now goes to login */}
+            {/* Compact CTA Button - Now scrolls to domains */}
             <motion.button
               whileHover={{ scale: 1.02, backgroundColor: "#ea580c" }}
               whileTap={{ scale: 0.98 }}
@@ -171,7 +208,12 @@ export default function Header() {
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             className="md:hidden p-2 rounded-md text-blue-800 hover:bg-blue-50 transition-colors"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+            }}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </motion.button>

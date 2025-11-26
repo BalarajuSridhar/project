@@ -62,32 +62,38 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };
 
-const login = async (email: string, password: string) => {
-  setIsLoading(true);
-  try {
-    const response = await fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+  const login = async (email: string, password: string) => {
+    setIsLoading(true);
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
+      const data = await response.json();
 
-    if (!data.success) {
-      throw new Error(data.error);
+      if (!data.success) {
+        throw new Error(data.error);
+      }
+
+      localStorage.setItem('token', data.data.token);
+      setUser(data.data.user);
+      
+      // Get return URL from query parameters or default to dashboard
+      const urlParams = new URLSearchParams(window.location.search);
+      const returnUrl = urlParams.get('returnUrl') || '/dashboard';
+      
+      // Use router.push for client-side navigation
+      router.push(returnUrl);
+    } catch (error) {
+      throw error;
+    } finally {
+      setIsLoading(false);
     }
-
-    localStorage.setItem('token', data.data.token);
-    setUser(data.data.user);
-    router.push('/dashboard'); // Redirect to dashboard
-  } catch (error) {
-    throw error;
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   const register = async (userData: any) => {
     setIsLoading(true);
